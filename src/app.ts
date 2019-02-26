@@ -1,9 +1,9 @@
-import Plumier, { WebApiFacility , PlumierConfiguration, Configuration} from "plumier";
-import Koa from "koa"
+import Koa from "koa";
+import Plumier, { Configuration, WebApiFacility } from "plumier";
 
-export function createApp(app?:Partial<Configuration>): Promise<Koa> {
+export function createApp(config?:Partial<Configuration>): Promise<Koa> {
     return new Plumier()
-        .set(app || {})
+        .set(config || {})
         .set(new WebApiFacility())
         .initialize()
 }

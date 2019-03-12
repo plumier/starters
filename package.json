@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "start": "ts-node-dev --inspect -- src/index",
-    "test": "jest"
+    "test": "jest",
+    "postbuild": "ts-node scripts/postbuild.ts",
+    "build": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "@types/dotenv": "^6.1.0",

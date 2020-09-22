@@ -5,6 +5,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "module": "commonjs",
+    "strictPropertyInitialization": false,
     //optional
     "strict": true,
     "esModuleInterop": true,

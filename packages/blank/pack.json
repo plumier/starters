@@ -4,7 +4,17 @@
     "scripts": {
       "debug": "ts-node-dev --inspect -- src/index"
     },
+    "dependencies": {
+      "@types/dotenv": "^8.2.0",
+      "dotenv": "^8.2.0",
+      "plumier": "canary"
+    },
+    "devDependencies": {
+      "ts-node-dev": "^1.0.0-pre.63",
+      "typescript": "^4.0.3"
+    },
     "description": "Monorepo contains starter project to create Plumier application",
+    "main": "index.js",
     "repository": "git@github.com:plumier/starter.git",
     "author": "Ketut Sandiarsa <ktutnik@gmail.com>",
     "license": "MIT",

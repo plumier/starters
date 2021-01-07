@@ -8,15 +8,15 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "starters/*"
+      "./*"
     ],
     "nohoist": [
       "**/blank",
       "**/blank/**",
-      "**/typeorm",
-      "**/typeorm/**",
-      "**/mongoose",
-      "**/mongoose/**"
+      "**/rest-api-typeorm",
+      "**/rest-api-typeorm/**",
+      "**/rest-api-mongoose",
+      "**/rest-api-mongoose/**"
     ]
   }
 }

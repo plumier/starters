@@ -1,16 +1,22 @@
 {
-    "name": "plumier-starter-projects",
-    "version": "1.0.0",
-    "scripts": {
-      "debug": "ts-node-dev --inspect -- src/index"
-    },
-    "description": "Monorepo contains starter project to create Plumier application",
-    "repository": "git@github.com:plumier/starter.git",
-    "author": "Ketut Sandiarsa <ktutnik@gmail.com>",
-    "license": "MIT",
-    "private": true,
-      "workspaces": [
-          "packages/*"
-      ]
+  "name": "plumier-starter-projects",
+  "version": "1.0.0",
+  "description": "Monorepo contains starter project to create Plumier application",
+  "repository": "git@github.com:plumier/starter.git",
+  "author": "Ketut Sandiarsa <ktutnik@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "starters/*"
+    ],
+    "nohoist": [
+      "**/blank",
+      "**/blank/**",
+      "**/typeorm",
+      "**/typeorm/**",
+      "**/mongoose",
+      "**/mongoose/**"
+    ]
   }
-  
+}

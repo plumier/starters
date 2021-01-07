@@ -1,24 +1,22 @@
 {
-  "name": "starter",
+  "name": "plumier-starter-projects",
   "version": "1.0.0",
-  "scripts": {
-    "start": "ts-node-dev --inspect -- src/index",
-    "test": "jest",
-    "postbuild": "ts-node scripts/postbuild.ts",
-    "build": "tsc -p tsconfig.build.json"
-  },
-  "dependencies": {
-    "@types/dotenv": "^6.1.0",
-    "dotenv": "^6.2.0",
-    "plumier": "^1.0.0-beta.2"
-  },
-  "devDependencies": {
-    "@types/jest": "^24.0.7",
-    "@types/supertest": "^2.0.7",
-    "jest": "^24.1.0",
-    "supertest": "^3.4.2",
-    "ts-jest": "^24.0.0",
-    "ts-node-dev": "^1.0.0-pre.32",
-    "typescript": "^3.3.3333"
+  "description": "Monorepo contains starter project to create Plumier application",
+  "repository": "git@github.com:plumier/starter.git",
+  "author": "Ketut Sandiarsa <ktutnik@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "starters/*"
+    ],
+    "nohoist": [
+      "**/blank",
+      "**/blank/**",
+      "**/typeorm",
+      "**/typeorm/**",
+      "**/mongoose",
+      "**/mongoose/**"
+    ]
   }
 }

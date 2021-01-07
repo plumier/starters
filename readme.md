@@ -20,3 +20,10 @@ For example
 ```
 npx degit plumier/starters/rest-api-mongoose my-cool-api
 ```
+
+If you are getting issue with `NPX` you can install degit globally then run degit manually like below 
+
+```
+npm install -g degit
+degit plumier/starters/<starter name> <target directory>
+```

@@ -4,3 +4,4 @@ build
 yarn.lock
 *.js
 .env
+.DS_Store

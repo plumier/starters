@@ -10,6 +10,9 @@ function createApp(config?: Partial<Configuration>) {
         .set(new MongooseFacility())
         .set(new JwtAuthFacility())
         .set(new SwaggerFacility())
+        .set(new ControllerFacility({ 
+            controller: "./api/**/*-*(entity|controller).*(ts|js)" 
+        }))
         .initialize()
 }
 

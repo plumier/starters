@@ -7,7 +7,6 @@ import { collection } from "@plumier/mongoose"
     toObject: { virtuals: true, versionKey: false }
 })
 export class EntityBase {
-    @authorize.readonly()
     @collection.id()
     id: string
 

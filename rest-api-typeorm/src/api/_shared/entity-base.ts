@@ -4,7 +4,6 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateCol
 
 @Entity()
 export class EntityBase {
-    @authorize.readonly()
     @PrimaryGeneratedColumn()
     id: number
 

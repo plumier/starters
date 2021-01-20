@@ -1,7 +1,7 @@
 import { JwtAuthFacility } from "@plumier/jwt"
 import { SwaggerFacility } from "@plumier/swagger"
 import { MongooseFacility } from "@plumier/mongoose"
-import Plumier, { Configuration, ControllerFacility, WebApiFacility } from "plumier"
+import Plumier, { Configuration, ControllerFacility, LoggerFacility, WebApiFacility } from "plumier"
 
 function createApp(config?: Partial<Configuration>) {
     return new Plumier()
@@ -13,6 +13,7 @@ function createApp(config?: Partial<Configuration>) {
         .set(new ControllerFacility({ 
             controller: "./api/**/*-*(entity|controller).*(ts|js)" 
         }))
+        .set(new LoggerFacility())
         .initialize()
 }
 

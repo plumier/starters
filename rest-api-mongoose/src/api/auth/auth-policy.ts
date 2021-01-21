@@ -7,7 +7,6 @@ authPolicy()
     // global authorization policy, see how it used in JwtAuthFacility
     .register("Private", i => {
         const user = i.user as (LoginUser | undefined)
-        console.log(user)
         // forbid non login user 
         if (!user) return false
         // forbid refresh token 

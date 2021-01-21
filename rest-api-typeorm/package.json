@@ -17,6 +17,7 @@
     "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.5.1",
     "plumier": "^1.0.0-rc.4",
+    "sqlite": "^4.0.19",
     "sqlite3": "^5.0.0",
     "typeorm": "^0.2.29"
   },

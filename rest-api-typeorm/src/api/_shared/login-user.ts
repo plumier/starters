@@ -1,6 +1,8 @@
 
+export type UserRole = "User" | "Admin"
 
 export interface LoginUser {
     userId: number,
-    role: "User" | "Admin" | "RefreshToken"
+    role: UserRole
+    refresh?: true
 }

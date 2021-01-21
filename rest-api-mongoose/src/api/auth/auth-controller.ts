@@ -1,45 +1,53 @@
 import { compare } from "bcryptjs"
 import { sign } from "jsonwebtoken"
 import { authorize, bind, HttpStatusError, response, route } from "plumier"
-import model from "@plumier/mongoose"
 
 import { LoginUser } from "../_shared/login-user"
 import { User } from "../user/user-entity"
-
-interface SignOption {
-    expiresIn: string | number,
-    refreshToken: boolean
-}
+import model from "@plumier/mongoose"
 
 export class AuthController {
 
+    // --------------------------------------------------------------------- //
+    // --------------------------- TOKEN HELPERS --------------------------- //
+    // --------------------------------------------------------------------- //
+
     @route.ignore()
-    private signToken(user: User, { refreshToken, ...opt }: Partial<SignOption> = {}) {
-        const role = refreshToken ? "RefreshToken" : user.role
-        return sign(<LoginUser>{ userId: user.id, role }, process.env.PLUM_JWT_SECRET!, opt)
+    private jwtClaims(user: User, refresh?: true) {
+        return <LoginUser>{ userId: user.id, role: user.role, refresh }
     }
 
     @route.ignore()
-    private createTokens(user: User) {
+    private createJwtTokens(user: User) {
         return {
-            // login token
-            token: this.signToken(user, { expiresIn: "30m" }),
-            // refresh token
-            refreshToken: this.signToken(user, { expiresIn: "7d", refreshToken: true })
+            // login token, expire every 30 minutes
+            token: sign(this.jwtClaims(user), process.env.PLUM_JWT_SECRET!, { expiresIn: "30m" }),
+            // refresh token, never expires
+            refreshToken: sign(this.jwtClaims(user, true), process.env.PLUM_JWT_SECRET!)
         };
     }
 
-    @authorize.public()
+    @route.ignore()
+    private createCookieToken(user: User) {
+        // cookie token, never expire
+        return sign(this.jwtClaims(user), process.env.PLUM_JWT_SECRET!)
+    }
+
+    // --------------------------------------------------------------------- //
+    // -------------------------------- APIs ------------------------------- //
+    // --------------------------------------------------------------------- //
+
+    @authorize.route("Public")
     @route.post()
     async login(email: string, password: string) {
         const UserModel = model(User)
         const user = await UserModel.findOne({ email })
         if (!user || !await compare(password, user.password))
             throw new HttpStatusError(422, "Invalid username or password")
-        const tokens = this.createTokens(user)
+        const tokens = this.createJwtTokens(user)
         return response.json(tokens)
-            // cookie token will never expires, http-only, same-site: lax
-            .setCookie("Authorization", this.signToken(user), { sameSite: "lax" })
+            // cookie token, http-only, same-site: lax
+            .setCookie("Authorization", this.createCookieToken(user), { sameSite: "lax" })
     }
 
     @route.post()
@@ -48,7 +56,7 @@ export class AuthController {
         const UserModel = model(User)
         const saved = await UserModel.findById(user.userId);
         if (!saved) throw new HttpStatusError(404, "User not found");
-        return this.createTokens(saved);
+        return this.createJwtTokens(saved);
     }
 
     async logout() {

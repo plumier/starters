@@ -9,7 +9,7 @@
   "dependencies": {
     "@types/dotenv": "^8.2.0",
     "dotenv": "^8.2.0",
-    "plumier": "1.0.0-rc.4"
+    "plumier": "1.0.0-rc.5"
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",

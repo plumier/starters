@@ -1,8 +1,6 @@
 
-export type UserRole = "User" | "Admin"
-
 export interface LoginUser {
     userId: string,
-    role: UserRole
+    role: "User" | "Admin"
     refresh?: true
 }

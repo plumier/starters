@@ -3,6 +3,11 @@ import { LoginUser } from "../_shared/login-user";
 
 
 authPolicy()
+    // register Admin role
+    .register("Admin", ({user}) => user?.role === "Admin")
+
+    // register User role
+    .register("User", ({user}) => user?.role === "User")
     
     // global authorization policy, see how it used in JwtAuthFacility
     .register("Private", i => {

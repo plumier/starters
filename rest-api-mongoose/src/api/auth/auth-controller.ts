@@ -59,6 +59,7 @@ export class AuthController {
         return this.createJwtTokens(saved);
     }
 
+    @route.post()
     async logout() {
         // clear cookie
         return response.json({}).setCookie("Authorization")

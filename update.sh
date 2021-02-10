@@ -5,12 +5,6 @@ if [[ $(git rev-parse --abbrev-ref HEAD) != "master" ]]; then
     echo 'Command must be run in master branch';
     exit 1
 fi 
-# make sure the master branch is clean 
-if ! git diff-index --quiet HEAD --; then
-    # No git changes (no update)
-    echo 'Master branch is dirty, revert or commit your changes first'
-    exit 1
-fi
 # update root package
 ncu -u
 # update pckages
@@ -28,8 +22,3 @@ rm -f yarn.lock
 rm -rf node_modules
 # install and test
 yarn install
-# push to upgrade branch
-git branch -D upgrade 
-git checkout -b upgrade 
-git add . && git commit -m "chore: Upgrade dependencies"
-git push -u origin upgrade

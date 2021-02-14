@@ -6,7 +6,7 @@ import Plumier, { Configuration, LoggerFacility, WebApiFacility } from "plumier"
 
 function createApp(config?: Partial<Configuration>) {
     return new Plumier()
-        .set({ ...config, rootDir: __dirname })
+        .set({ ...config })
         .set(new WebApiFacility())
         .set(new MongooseFacility())
         .set(new JwtAuthFacility({

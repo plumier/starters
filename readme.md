@@ -1,4 +1,7 @@
 # Plumier Project Starters
+
+[![Build Status](https://github.com/plumier/starters/workflows/ubuntu/badge.svg)](https://github.com/plumier/starters/actions?query=workflow%3Aubuntu)
+
 List of plumier project starters
 
 | Name                | Description                                                            |

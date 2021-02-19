@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should initialized properly 1`] = `
+Array [
+  Array [],
+  Array [
+    "Route Analysis Report",
+  ],
+  Array [
+    "1. AuthController.login(email, password)    -> Public        POST   /auth/login",
+  ],
+  Array [
+    "2. AuthController.refresh(user)             -> RefreshToken  POST   /auth/refresh",
+  ],
+  Array [
+    "3. AuthController.logout()                  -> Private       POST   /auth/logout",
+  ],
+  Array [
+    "4. TypeORMControllerGeneric.list            -> Admin         GET    /users",
+  ],
+  Array [
+    "5. TypeORMControllerGeneric.save(data, ctx) -> Public        POST   /users",
+  ],
+  Array [
+    "6. TypeORMControllerGeneric.get             -> ResourceOwner GET    /users/:id",
+  ],
+  Array [
+    "7. TypeORMControllerGeneric.modify          -> ResourceOwner PATCH  /users/:id",
+  ],
+  Array [
+    "8. TypeORMControllerGeneric.replace         -> ResourceOwner PUT    /users/:id",
+  ],
+  Array [
+    "9. TypeORMControllerGeneric.delete(id, ctx) -> ResourceOwner DELETE /users/:id",
+  ],
+  Array [],
+]
+`;

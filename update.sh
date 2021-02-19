@@ -22,3 +22,4 @@ rm -f yarn.lock
 rm -rf node_modules
 # install and test
 yarn install
+yarn test

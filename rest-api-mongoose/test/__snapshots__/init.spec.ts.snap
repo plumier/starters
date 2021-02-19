@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should initialized properly 1`] = `
+Array [
+  Array [],
+  Array [
+    "Route Analysis Report",
+  ],
+  Array [
+    "1. AuthController.login(email, password) -> Public        POST   /auth/login",
+  ],
+  Array [
+    "2. AuthController.refresh(user)          -> RefreshToken  POST   /auth/refresh",
+  ],
+  Array [
+    "3. AuthController.logout()               -> Private       POST   /auth/logout",
+  ],
+  Array [
+    "4. MongooseControllerGeneric.get         -> ResourceOwner GET    /users/:id",
+  ],
+  Array [
+    "5. MongooseControllerGeneric.modify      -> ResourceOwner PATCH  /users/:id",
+  ],
+  Array [
+    "6. MongooseControllerGeneric.replace     -> ResourceOwner PUT    /users/:id",
+  ],
+  Array [
+    "7. MongooseControllerGeneric.delete      -> ResourceOwner DELETE /users/:id",
+  ],
+  Array [
+    "8. MongooseControllerGeneric.list        -> Admin         GET    /users",
+  ],
+  Array [
+    "9. MongooseControllerGeneric.save        -> Public        POST   /users",
+  ],
+  Array [],
+]
+`;

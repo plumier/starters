@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Authorization Should able to login properly 1`] = `
+Object {
+  "exp": Any<Number>,
+  "iat": Any<Number>,
+  "role": "User",
+  "userId": Any<String>,
+}
+`;
+
+exports[`Authorization Should able to login properly 2`] = `
+Object {
+  "iat": Any<Number>,
+  "refresh": true,
+  "role": "User",
+  "userId": Any<String>,
+}
+`;
+
+exports[`Authorization Should able to request refresh token with refresh token 1`] = `
+Object {
+  "exp": Any<Number>,
+  "iat": Any<Number>,
+  "role": "User",
+  "userId": Any<String>,
+}
+`;
+
+exports[`Authorization Should able to request refresh token with refresh token 2`] = `
+Object {
+  "iat": Any<Number>,
+  "refresh": true,
+  "role": "User",
+  "userId": Any<String>,
+}
+`;

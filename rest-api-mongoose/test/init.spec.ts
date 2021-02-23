@@ -1,11 +1,13 @@
-import supertest from "supertest"
-import createApp from "../src/app"
 import "@plumier/testing"
-import {join} from "path"
+
 import dotenv from "dotenv"
 import mongoose from "mongoose"
+import { join } from "path"
+
+import createApp from "../src/app"
 
 dotenv.config({ path: join(__dirname, "./.env-test") })
+
 
 it("Should initialized properly", async () => {
     const mock = console.mock()

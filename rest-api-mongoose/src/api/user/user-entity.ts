@@ -1,16 +1,16 @@
 import { collection } from "@plumier/mongoose"
 import bcrypt from "bcryptjs"
-import { authorize, preSave, route, val } from "plumier"
+import { authorize, genericController, preSave, val } from "plumier"
 
 import { EntityBase } from "../_shared/entity-base"
 
-@route.controller(c => {
+@genericController(c => {
     // POST /users accessible by public
     c.post().authorize("Public")
 
     // PUT PATCH DELETE GET /users/{id} only accessible by the user itself 
     // See the user-policy.ts file how ResourceOwner defined
-    c.actions("Delete", "GetOne", "Patch", "Put").authorize("ResourceOwner")
+    c.methods("Delete", "GetOne", "Patch", "Put").authorize("ResourceOwner")
 
     // GET /users?limit&offset&filter only accessible by Admin
     c.getMany().authorize("Admin")

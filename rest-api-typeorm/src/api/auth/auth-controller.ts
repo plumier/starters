@@ -1,9 +1,8 @@
 import { compare } from "bcryptjs"
 import { sign } from "jsonwebtoken"
-import { authorize, bind, HttpStatusError, response, route } from "plumier"
+import { authorize, bind, HttpStatusError, JwtClaims, response, route } from "plumier"
 import { getManager } from "typeorm"
 
-import { LoginUser } from "../_shared/login-user"
 import { User } from "../user/user-entity"
 
 export class AuthController {
@@ -15,7 +14,7 @@ export class AuthController {
 
     @route.ignore()
     private jwtClaims(user: User, refresh?: true) {
-        return <LoginUser>{ userId: user.id, role: user.role, refresh }
+        return <JwtClaims>{ userId: user.id, role: user.role, refresh }
     }
 
     @route.ignore()
@@ -52,7 +51,7 @@ export class AuthController {
 
     @route.post()
     @authorize.route("RefreshToken")
-    async refresh(@bind.user() user: LoginUser) {
+    async refresh(@bind.user() user: JwtClaims) {
         const saved = await this.userRepo.findOne(user.userId);
         if (!saved) throw new HttpStatusError(404, "User not found");
         return this.createJwtTokens(saved);

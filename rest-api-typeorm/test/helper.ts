@@ -1,16 +1,15 @@
 import dotenv from "dotenv"
 import { sign } from "jsonwebtoken"
 import { join } from "path"
+import { JwtClaims } from "plumier"
 import supertest from "supertest"
 import { getConnection } from "typeorm"
 import { User } from "../src/api/user/user-entity"
 
-import { LoginUser } from "../src/api/_shared/login-user"
-
 dotenv.config({ path: join(__dirname, ".env-test") })
 
 export function createToken(id: number, role: "User" | "Admin") {
-    return sign(<LoginUser>{ userId: id, role }, process.env.PLUM_JWT_SECRET!)
+    return sign(<JwtClaims>{ userId: id, role }, process.env.PLUM_JWT_SECRET!)
 }
 
 export const ignoreProps = {

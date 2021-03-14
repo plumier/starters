@@ -1,8 +1,7 @@
 import { compare } from "bcryptjs"
 import { sign } from "jsonwebtoken"
-import { authorize, bind, HttpStatusError, response, route } from "plumier"
+import { authorize, bind, HttpStatusError, JwtClaims, response, route } from "plumier"
 
-import { LoginUser } from "../_shared/login-user"
 import { User } from "../user/user-entity"
 import model from "@plumier/mongoose"
 
@@ -14,7 +13,7 @@ export class AuthController {
 
     @route.ignore()
     private jwtClaims(user: User, refresh?: true) {
-        return <LoginUser>{ userId: user.id, role: user.role, refresh }
+        return <JwtClaims>{ userId: user.id, role: user.role, refresh }
     }
 
     @route.ignore()
@@ -52,7 +51,7 @@ export class AuthController {
 
     @route.post()
     @authorize.route("RefreshToken")
-    async refresh(@bind.user() user: LoginUser) {
+    async refresh(@bind.user() user: JwtClaims) {
         const UserModel = model(User)
         const saved = await UserModel.findById(user.userId);
         if (!saved) throw new HttpStatusError(404, "User not found");

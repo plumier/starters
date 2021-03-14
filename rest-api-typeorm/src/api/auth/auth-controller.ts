@@ -13,24 +13,20 @@ export class AuthController {
     // --------------------------------------------------------------------- //
 
     @route.ignore()
-    private jwtClaims(user: User, refresh?: true) {
-        return <JwtClaims>{ userId: user.id, role: user.role, refresh }
+    private createToken(user: User, option?: { expiresIn?: string, refresh?: true }) {
+        const dOption = { expiresIn: '9999 year' }
+        const { refresh, expiresIn } = { ...dOption, ...option } ?? dOption
+        return sign(<JwtClaims>{ userId: user.id, role: user.role, refresh }, process.env.PLUM_JWT_SECRET!, { expiresIn })
     }
 
     @route.ignore()
-    private createJwtTokens(user: User) {
+    private createTokens(user: User) {
         return {
             // login token, expire every 30 minutes
-            token: sign(this.jwtClaims(user), process.env.PLUM_JWT_SECRET!, { expiresIn: "30m" }),
+            token: this.createToken(user, { expiresIn: "30m" }),
             // refresh token, never expires
-            refreshToken: sign(this.jwtClaims(user, true), process.env.PLUM_JWT_SECRET!)
+            refreshToken: this.createToken(user, { refresh: true })
         };
-    }
-
-    @route.ignore()
-    private createCookieToken(user: User) {
-        // cookie token, never expire
-        return sign(this.jwtClaims(user), process.env.PLUM_JWT_SECRET!)
     }
 
     // --------------------------------------------------------------------- //
@@ -43,10 +39,10 @@ export class AuthController {
         const user = await this.userRepo.findOne({ email })
         if (!user || !await compare(password, user.password))
             throw new HttpStatusError(422, "Invalid username or password")
-        const tokens = this.createJwtTokens(user)
+        const tokens = this.createTokens(user)
         return response.json(tokens)
             // cookie token, http-only, same-site: lax
-            .setCookie("Authorization", this.createCookieToken(user), { sameSite: "lax" })
+            .setCookie("Authorization", this.createToken(user), { sameSite: "lax" })
     }
 
     @route.post()
@@ -54,7 +50,7 @@ export class AuthController {
     async refresh(@bind.user() user: JwtClaims) {
         const saved = await this.userRepo.findOne(user.userId);
         if (!saved) throw new HttpStatusError(404, "User not found");
-        return this.createJwtTokens(saved);
+        return this.createTokens(saved);
     }
 
     @route.post()

@@ -4,6 +4,8 @@ import supertest from "supertest"
 import createApp from "../src/app"
 import { closeConnection, createUser } from "./helper"
 
+const tokenIgnore = { iat: expect.any(Number), exp: expect.any(Number) }
+
 afterEach(async () => {
     await closeConnection()
 })
@@ -17,8 +19,8 @@ describe("Authorization", () => {
             .post("/auth/login")
             .send(user)
             .expect(200)
-        expect(decode(tokens.token)).toMatchSnapshot({ iat: expect.any(Number), exp: expect.any(Number) })
-        expect(decode(tokens.refreshToken)).toMatchSnapshot({ iat: expect.any(Number) })
+        expect(decode(tokens.token)).toMatchSnapshot(tokenIgnore)
+        expect(decode(tokens.refreshToken)).toMatchSnapshot(tokenIgnore)
     })
 
     it("Should able to request refresh token with refresh token", async () => {
@@ -33,8 +35,8 @@ describe("Authorization", () => {
             .post("/auth/refresh")
             .set("Authorization", `Bearer ${tokens.refreshToken}`)
             .expect(200)
-        expect(decode(secondTokens.token)).toMatchSnapshot({ iat: expect.any(Number), exp: expect.any(Number) })
-        expect(decode(secondTokens.refreshToken)).toMatchSnapshot({ iat: expect.any(Number) })
+        expect(decode(secondTokens.token)).toMatchSnapshot(tokenIgnore)
+        expect(decode(secondTokens.refreshToken)).toMatchSnapshot(tokenIgnore)
     })
 
     it("Should not able to request refresh token with token", async () => {

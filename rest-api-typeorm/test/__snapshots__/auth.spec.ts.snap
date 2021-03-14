@@ -11,6 +11,7 @@ Object {
 
 exports[`Authorization Should able to login properly 2`] = `
 Object {
+  "exp": Any<Number>,
   "iat": Any<Number>,
   "refresh": true,
   "role": "User",
@@ -29,6 +30,7 @@ Object {
 
 exports[`Authorization Should able to request refresh token with refresh token 2`] = `
 Object {
+  "exp": Any<Number>,
   "iat": Any<Number>,
   "refresh": true,
   "role": "User",

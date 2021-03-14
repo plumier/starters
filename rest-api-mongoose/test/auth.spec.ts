@@ -7,6 +7,7 @@ import mongoose from "mongoose"
 
 jest.setTimeout(20000);
 
+const tokenIgnore = { iat: expect.any(Number), exp: expect.any(Number), userId: expect.any(String) }
 
 afterAll(async () => {
     await mongoose.disconnect()
@@ -21,8 +22,8 @@ describe("Authorization", () => {
             .post("/auth/login")
             .send(user)
             .expect(200)
-        expect(decode(tokens.token)).toMatchSnapshot({ iat: expect.any(Number), exp: expect.any(Number), userId: expect.any(String) })
-        expect(decode(tokens.refreshToken)).toMatchSnapshot({ iat: expect.any(Number), userId: expect.any(String) })
+        expect(decode(tokens.token)).toMatchSnapshot(tokenIgnore)
+        expect(decode(tokens.refreshToken)).toMatchSnapshot(tokenIgnore)
     })
 
     it("Should able to request refresh token with refresh token", async () => {
@@ -37,8 +38,8 @@ describe("Authorization", () => {
             .post("/auth/refresh")
             .set("Authorization", `Bearer ${tokens.refreshToken}`)
             .expect(200)
-        expect(decode(secondTokens.token)).toMatchSnapshot({ iat: expect.any(Number), exp: expect.any(Number), userId: expect.any(String) })
-        expect(decode(secondTokens.refreshToken)).toMatchSnapshot({ iat: expect.any(Number), userId: expect.any(String) })
+        expect(decode(secondTokens.token)).toMatchSnapshot(tokenIgnore)
+        expect(decode(secondTokens.refreshToken)).toMatchSnapshot(tokenIgnore)
     })
 
     it("Should not able to request refresh token with token", async () => {

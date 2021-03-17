@@ -9,7 +9,7 @@ authPolicy()
     .register("User", ({ user }) => user?.role === "User")
 
     // global authorization policy, see how it used in JwtAuthFacility
-    .register("Private", ({ user }) => {
+    .register("AnyUser", ({ user }) => {
         // forbid non login user 
         if (!user) return false
         // forbid refresh token 

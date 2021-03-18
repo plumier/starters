@@ -13,7 +13,7 @@ Array [
     "2. AuthController.refresh(user)          -> RefreshToken  POST   /auth/refresh",
   ],
   Array [
-    "3. AuthController.logout()               -> Private       POST   /auth/logout",
+    "3. AuthController.logout()               -> AnyUser       POST   /auth/logout",
   ],
   Array [
     "4. MongooseControllerGeneric.get         -> ResourceOwner GET    /users/:id",

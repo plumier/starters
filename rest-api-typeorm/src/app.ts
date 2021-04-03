@@ -10,7 +10,7 @@ function createApp(config?: Partial<Configuration>) {
         .set(new WebApiFacility())
         .set(new TypeORMFacility())
         .set(new JwtAuthFacility({ 
-            global: "AnyUser",
+            globalAuthorize: "AnyUser",
         }))
         .set(new SwaggerFacility())
         .set(new LoggerFacility())

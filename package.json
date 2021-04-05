@@ -14,12 +14,7 @@
       "./*"
     ],
     "nohoist": [
-      "**/blank",
-      "**/blank/**",
-      "**/rest-api-typeorm",
-      "**/rest-api-typeorm/**",
-      "**/rest-api-mongoose",
-      "**/rest-api-mongoose/**"
+      "**"
     ]
   }
 }

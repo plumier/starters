@@ -17,8 +17,8 @@ import { EntityBase } from "../_shared/entity-base"
 })
 @collection()
 export class User extends EntityBase {
-    // email will only visible by the user itself
-    @authorize.read("ResourceOwner")
+    // email will only visible by the user itself or by Admin
+    @authorize.read("ResourceOwner", "Admin")
     @val.required()
     @val.unique()
     @val.email()

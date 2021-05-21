@@ -1,5 +1,6 @@
 import decode from "jwt-decode"
 import supertest from "supertest"
+import { User } from "../src/api/user/user-entity"
 
 import createApp from "../src/app"
 import { closeConnection, createUser } from "./helper"
@@ -79,5 +80,15 @@ describe("Authorization", () => {
             .post("/auth/logout")
             .set("Authorization", `Bearer ${tokens.refreshToken}`)
             .expect(401)
+    })
+
+    it("Should not able to login when suspended", async () => {
+        const app = await createApp({ mode: "production" })
+        const user = <User>{ email: "lorem@ipsum.com", password: "lorem", status: "Suspended" }
+        await createUser(app, user)
+        await supertest(app.callback())
+            .post("/auth/login")
+            .send({ email: user.email, password: user.password })
+            .expect(422)
     })
 })

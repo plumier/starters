@@ -35,12 +35,18 @@ export class User extends EntityBase {
     @Column()
     name:string
 
+    @val.enums(["User", "Admin"])
     // role only can be set by Admin
     @authorize.write("Admin")
     // role only visible to the user itself or by Admin
     @authorize.read("ResourceOwner", "Admin")
     @Column({ default: "User" })
     role: "User" | "Admin"
+
+    @val.enums(["Active", "Suspended"])
+    @authorize.write("Admin")
+    @Column({ default: "Active" })
+    status: "Active" | "Suspended"
 
     @preSave()
     async hashPassword() {

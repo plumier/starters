@@ -4,6 +4,7 @@ import supertest from "supertest"
 import createApp from "../src/app"
 import { createUser } from "./helper"
 import mongoose from "mongoose"
+import { User } from "../src/api/user/user-entity"
 
 jest.setTimeout(20000);
 
@@ -82,5 +83,15 @@ describe("Authorization", () => {
             .post("/auth/logout")
             .set("Authorization", `Bearer ${tokens.refreshToken}`)
             .expect(401)
+    })
+
+    it("Should not able to login when suspended", async () => {
+        const user = <User>{ email: `${new Date().getTime().toString(36)}@gmail.com`, password: "lorem", status: "Suspended" }
+        const app = await createApp({ mode: "production" })
+        await createUser(app, user)
+        await supertest(app.callback())
+            .post("/auth/login")
+            .send({email: user.email, password: user.password})
+            .expect(422)
     })
 })

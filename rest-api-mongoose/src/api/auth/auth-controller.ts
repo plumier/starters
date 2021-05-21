@@ -36,7 +36,7 @@ export class AuthController {
     @route.post()
     async login(email: string, password: string) {
         const UserModel = model(User)
-        const user = await UserModel.findOne({ email })
+        const user = await UserModel.findOne({ email, status: "Active" })
         if (!user || !await compare(password, user.password))
             throw new HttpStatusError(422, "Invalid username or password")
         const tokens = this.createTokens(user)
@@ -51,6 +51,7 @@ export class AuthController {
         const UserModel = model(User)
         const saved = await UserModel.findById(user.userId);
         if (!saved) throw new HttpStatusError(404, "User not found");
+        if (saved.status === "Suspended") throw new HttpStatusError(404, "User not found");
         return this.createTokens(saved);
     }
 

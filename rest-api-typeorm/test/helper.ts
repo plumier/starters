@@ -29,7 +29,8 @@ export async function createUser(app: any, user: Partial<User> = {}) {
             email: user.email ?? "john.doe@gmail.com",
             password: user.password ?? "john0doe#",
             name: user.name ?? "John Doe",
-            role: user.role ?? "User"
+            role: user.role ?? "User",
+            status: user.status
         }).expect(200)
     const token = createToken(body.id, user.role ?? "User")
     return { id: body.id, token }

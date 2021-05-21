@@ -1,6 +1,6 @@
 import { collection } from "@plumier/mongoose"
 import bcrypt from "bcryptjs"
-import { authorize, genericController, preSave, val } from "plumier"
+import { authorize, authPolicy, genericController, preSave, val } from "plumier"
 
 import { EntityBase } from "../_shared/entity-base"
 
@@ -32,6 +32,7 @@ export class User extends EntityBase {
     @val.required()
     name:string
 
+    @val.enums(["Admin", "User"])
     // role only can be set by Admin
     @authorize.write("Admin")
     // role only visible to the user itself or by Admin
@@ -39,8 +40,13 @@ export class User extends EntityBase {
     @collection.property({ default: "User" })
     role: "User" | "Admin"
 
+    @val.enums(["Active", "Suspended"])
+    @authorize.write("Admin")
+    @collection.property({ default: "Active" })
+    status: "Active" | "Suspended"
+
     @preSave()
-    async hashPassword() {
+    async initEntity() {
         if (this.password)
             this.password = await bcrypt.hash(this.password, await bcrypt.genSalt())
     }

@@ -36,7 +36,7 @@ export class AuthController {
     @authorize.route("Public")
     @route.post()
     async login(email: string, password: string) {
-        const user = await this.userRepo.findOne({ email })
+        const user = await this.userRepo.findOne({ email, status: "Active" })
         if (!user || !await compare(password, user.password))
             throw new HttpStatusError(422, "Invalid username or password")
         const tokens = this.createTokens(user)
@@ -50,6 +50,7 @@ export class AuthController {
     async refresh(@bind.user() user: JwtClaims) {
         const saved = await this.userRepo.findOne(user.userId);
         if (!saved) throw new HttpStatusError(404, "User not found");
+        if(saved.status === "Suspended") throw new HttpStatusError(404, "User not found");
         return this.createTokens(saved);
     }
 

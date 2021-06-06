@@ -7,31 +7,34 @@ Array [
     "Route Analysis Report",
   ],
   Array [
-    "1. AuthController.login(email, password) -> Public        POST   /auth/login",
+    " 1. AuthController.login(email, password) -> Public        POST   /auth/login",
   ],
   Array [
-    "2. AuthController.refresh(user)          -> RefreshToken  POST   /auth/refresh",
+    " 2. AuthController.refresh(user)          -> RefreshToken  POST   /auth/refresh",
   ],
   Array [
-    "3. AuthController.logout()               -> AnyUser       POST   /auth/logout",
+    " 3. AuthController.logout()               -> AnyUser       POST   /auth/logout",
   ],
   Array [
-    "4. MongooseControllerGeneric.get         -> ResourceOwner GET    /users/:id",
+    " 4. MongooseControllerGeneric.get         -> ResourceOwner GET    /users/:id",
   ],
   Array [
-    "5. MongooseControllerGeneric.modify      -> ResourceOwner PATCH  /users/:id",
+    " 5. MongooseControllerGeneric.modify      -> ResourceOwner PATCH  /users/:id",
   ],
   Array [
-    "6. MongooseControllerGeneric.replace     -> ResourceOwner PUT    /users/:id",
+    " 6. MongooseControllerGeneric.replace     -> ResourceOwner PUT    /users/:id",
   ],
   Array [
-    "7. MongooseControllerGeneric.delete      -> ResourceOwner DELETE /users/:id",
+    " 7. MongooseControllerGeneric.delete      -> ResourceOwner DELETE /users/:id",
   ],
   Array [
-    "8. MongooseControllerGeneric.list        -> Admin         GET    /users",
+    " 8. MongooseControllerGeneric.list        -> Admin         GET    /users",
   ],
   Array [
-    "9. MongooseControllerGeneric.save        -> Public        POST   /users",
+    " 9. MongooseControllerGeneric.save        -> Public        POST   /users",
+  ],
+  Array [
+    "10. SwaggerFacility                       -> Public        GET    /swagger",
   ],
   Array [],
 ]

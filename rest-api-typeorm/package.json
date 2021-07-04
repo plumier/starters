@@ -22,7 +22,7 @@
     "sqlite3": "^5.0.2"
   },
   "peerDependencies": {
-    "typeorm": "^0.2.34"
+    "typeorm": "*"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",

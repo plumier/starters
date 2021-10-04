@@ -51,7 +51,7 @@ describe("Authorization", () => {
         await supertest(app.callback())
             .post("/auth/refresh")
             .set("Authorization", `Bearer ${tokens.token}`)
-            .expect(401)
+            .expect(403)
     })
 
     it("Should able to access private route using token", async () => {
@@ -79,7 +79,7 @@ describe("Authorization", () => {
         await supertest(app.callback())
             .post("/auth/logout")
             .set("Authorization", `Bearer ${tokens.refreshToken}`)
-            .expect(401)
+            .expect(403)
     })
 
     it("Should not able to login when suspended", async () => {
